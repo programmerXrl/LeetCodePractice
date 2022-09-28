@@ -35,7 +35,6 @@ public class Day01 {
             }
         }
         return array;
-        //https://leetcode.cn/problems/diao-zheng-shu-zu-shun-xu-shi-qi-shu-wei-yu-ou-shu-qian-mian-lcof/
     }
     public static int minNumberInRotateArray(ArrayList<Integer> array) {
        int left = 0;
@@ -51,7 +50,6 @@ public class Day01 {
            }
        }
        return array.get(left);
-       //https://leetcode.cn/problems/xuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof/?favorite=xb9nqhhg
     }
     public boolean Find(int target, int [][] array) {
         int row = array.length;
@@ -72,6 +70,5 @@ public class Day01 {
             }
         }
         return false;
-        //https://leetcode.cn/problems/er-wei-shu-zu-zhong-de-cha-zhao-lcof/
     }
 }
