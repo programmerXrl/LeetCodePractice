@@ -1,0 +1,48 @@
+package Level1;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class Day01 {
+    public static void main(String[] args) {
+        int[] arr = {1,2,3};
+        Day01 day01 = new Day01();
+        System.out.println(day01.pivotIndex(arr));
+    }
+    public int pivotIndex(int[] nums) {
+        int sum = 0;
+        for (int k = 0; k < nums.length; k++) {
+            sum+=nums[k];
+        }
+        int count = 0;
+        for (int k = 0; k < nums.length; k++) {
+            count+=nums[k];
+            if (count==sum){
+                return k;
+            }
+            sum-=nums[k];
+        }
+        return -1;
+    }
+    public static int[] runningSum(int[] nums) {
+        int[] arr = new int[nums.length];
+        arr[0]=nums[0];
+        if (nums.length==1){
+            return arr;
+        }
+        if (nums.length==2){
+            arr[1]=nums[0]+nums[1];
+            return arr;
+        }
+        int i = nums[0];
+        int j = nums[1];
+        for (int k = 1; k < nums.length-1 ; k++) {
+            arr[k]=i+j;
+            i=nums[k+1];
+            j=arr[k];
+        }
+        arr[nums.length-1]=i+j;
+        return arr;
+    }
+}
