@@ -1,68 +1,79 @@
 package month3;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
-
-class Node{
-    int x;
-    int y;
-    public Node(int x, int y){
-        this.x = x;
-        this.y = y;
-    }
-}
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        String str = reader.readLine();
-        String[] arr = str.split(" ");
-        int row = Integer.parseInt(arr[0]);
-        int col = Integer.parseInt(arr[1]);
-        int[][] book = new int[row][col];
-        int[][] mat = new int[row][col];
-        ArrayList<Node> path = new ArrayList<>();
-        ArrayList<Node> minPath = new ArrayList<>();
-        for (int i = 0; i < row; i++) {
-            str = reader.readLine();
-            arr = str.split(" ");
-            for (int j = 0; j < col; j++) {
-                mat[i][j] = Integer.parseInt(arr[j]);
-            }
-        }
-        getMinPath(mat,row,col,0,0,book,path,minPath);
-        for (Node node : minPath){
-            System.out.println("(" + node.x + "," + node.y + ")");
-        }
-    }
-    static void getMinPath(int[][] mat, int row, int col, int x, int y, int[][] book, ArrayList<Node> path, ArrayList<Node> minPath){
-        //判断当前位置能不能走
-        if (x < 0 || x >= col || y < 0 || y >= row || book[x][y] == 1 || mat[x][y] == 1){
-            return;
-        }
-        //如果能走
-        path.add(new Node(x,y));
-        book[x][y] = 1;
-        //判断是否到了目的地
-        if (x == row-1 && y == col-1){
-            if (minPath.isEmpty() || path.size() < minPath.size()){
-                minPath.clear();
-                for (Node node : path){
-                    minPath.add(node);
+    public static void main1(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int ans = 0;
+        for (int i = 2; i <=n ; i++) {
+            int sum = 1;
+            for (int j = 2; j <= Math.sqrt(i) ; j++) {
+                if (i % j == 0){
+                    sum+=j;
+                    sum+=i/j;
                 }
             }
+            if (sum == i){
+                ans++;
+            }
         }
-        //上下左右走
-        getMinPath(mat,row,col,x,y-1,book,path,minPath);
-        getMinPath(mat,row,col,x,y+1,book,path,minPath);
-        getMinPath(mat,row,col,x-1,y,book,path,minPath);
-        getMinPath(mat,row,col,x+1,y,book,path,minPath);
+        System.out.println(ans);
+    }
 
-        //如果不能走,就往回退,同时删除标记
-        path.remove(path.size()-1);
-        book[x][y] = 0;
+    public static void main2(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String str = sc.nextLine();
+        int year = Integer.parseInt(str.split(" ")[0]);
+        int  month = Integer.parseInt(str.split(" ")[1]);
+        int day = Integer.parseInt(str.split(" ")[2]);
+        int ans = 0;
+        if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0){
+            //是闰年
+            switch (month){
+                case 1 : ans = day;break;
+                case 2 : ans = 31 + day;break;
+                case 3 : ans = 60 + day;break;
+                case 4 : ans = 91 + day;break;
+                case 5 : ans = 121 + day;break;
+                case 6 : ans = 152 + day;break;
+                case 7 : ans = 182 + day;break;
+                case 8 : ans = 213 + day;break;
+                case 9 : ans = 244 + day;break;
+                case 10 : ans = 274 + day;break;
+                case 11 : ans = 305 + day;break;
+                case 12 : ans = 335 + day;break;
+            }
+        }else {
+            switch (month){
+                case 1 : ans = day;break;
+                case 2 : ans = 31 + day;break;
+                case 3 : ans = 59 + day;break;
+                case 4 : ans = 90 + day;break;
+                case 5 : ans = 120 + day;break;
+                case 6 : ans = 151 + day;break;
+                case 7 : ans = 181 + day;break;
+                case 8 : ans = 212 + day;break;
+                case 9 : ans = 243 + day;break;
+                case 10 : ans = 273 + day;break;
+                case 11 : ans = 304 + day;break;
+                case 12 : ans = 334 + day;break;
+            }
+        }
+        System.out.println(ans);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+
     }
 }
-
