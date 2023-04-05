@@ -6,26 +6,44 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
        Scanner sc = new Scanner(System.in);
-       String str = sc.nextLine();
-       Map<Character,Integer> map = new HashMap<>();
-       int max = 0;
-        for (int i = 0; i < str.length(); i++) {
-            char ch = str.charAt(i);
-            if (map.containsKey(ch)){
-                map.put(ch,map.get(ch)+1);
-                max=Math.max(max,map.get(ch));
+       int n = sc.nextInt();
+       int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+        int[] result = new int[n];
+        for (int i = 0; i < n; i++) {
+            int a = 0;//大于这个数
+            int b = 0;//小于这个数
+            for (int j = 0; j < n; j++) {
+                if (arr[i] < arr[j]){
+                    a++;
+                }else if(arr[i] > arr[j]){
+                    b++;
+                }
+            }
+            if (a <= b){
+                result[i] = 0;
+                System.out.println(result[i]);
             }else {
-                map.put(ch,1);
+                int[] tar = new int[n-1-b];
+                int x = 0;
+                for (int j = 0; j < n; j++) {
+                    if (arr[i]<arr[j]){
+                        tar[x] = arr[j];
+                        x++;
+                    }
+                }
+                Arrays.sort(tar);
+                //System.out.println(Arrays.toString(tar));
+                int k = -1;
+                while (a > b){
+                    k++;
+                    a--;
+                    b++;
+                }
+                System.out.println(tar[k]-arr[i]+1);
             }
-        }
-        Set<Character> set = new TreeSet<>();
-        for (int i=0; i<str.length(); i++){
-            if (map.get(str.charAt(i))==max){
-                set.add(str.charAt(i));
-            }
-        }
-        for (char ch : set){
-            System.out.print(ch);
         }
     }
 }
