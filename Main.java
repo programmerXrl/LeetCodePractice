@@ -1,51 +1,31 @@
 package month3;
 
+import java.math.BigInteger;
 import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        int m = sc.nextInt();
-        int[] arr = new int[m+1];
-        for (int i = 0; i < m+1; i++) {
-            arr[i] = Integer.MAX_VALUE;
-        }
-        arr[n] = 0;
-        for (int i = n; i < m; i++) {
-            if (arr[i] == Integer.MAX_VALUE){
-                //如果当前石板上没有数字,表示到达不了,直接跳过
-                continue;
-            }
-            List<Integer> list = helper(i);
-            for(int j : list){
-                if (i + j <= m && arr[i+j] == Integer.MAX_VALUE){//如果目标跳板上没有数字
-                    arr[i + j] = arr[i] + 1;
-                }else if (i + j <=m){
-                    //如果目标跳板上有标记
-                    //取最小值
-                    arr[i + j] = Math.min(arr[i + j],arr[i] + 1);
-                }
+       Scanner sc = new Scanner(System.in);
+       String str = sc.nextLine();
+       Map<Character,Integer> map = new HashMap<>();
+       int max = 0;
+        for (int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+            if (map.containsKey(ch)){
+                map.put(ch,map.get(ch)+1);
+                max=Math.max(max,map.get(ch));
+            }else {
+                map.put(ch,1);
             }
         }
-        if (arr[m]!=Integer.MAX_VALUE){
-            //有数字
-            System.out.println(arr[m]);
-        }else {
-            System.out.println(-1);
-        }
-    }
-    static List<Integer> helper(int num){
-        //求num约数集的函数
-        List<Integer> list = new ArrayList<>();
-        for (int i = 2; i * i <= num; i++) {
-            if (num % i == 0){
-                list.add(i);
-                if (num / i != i){
-                    list.add(num / i);
-                }
+        Set<Character> set = new TreeSet<>();
+        for (int i=0; i<str.length(); i++){
+            if (map.get(str.charAt(i))==max){
+                set.add(str.charAt(i));
             }
         }
-        return list;
+        for (char ch : set){
+            System.out.print(ch);
+        }
     }
 }
