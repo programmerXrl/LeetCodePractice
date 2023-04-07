@@ -1,24 +1,20 @@
 package month4;
 
-import java.util.Scanner;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        int m = sc.nextInt();
-        int[][] dp = new int[n+1][m+1];
-        for(int i=0; i<=n; i++){
-            dp[i][0] = 1;
-        }
-        for(int i=0; i<=m; i++){
-            dp[0][i] = 1;
-        }
-        for(int i=1; i<=n; i++){
-            for (int j=1; j<=m; j++){
-                dp[i][j] = dp[i][j-1] + dp[i-1][j];
-            }
-        }
-        System.out.println(dp[n][m]);
+    public static void main(String[] args) throws ParseException {
+       String s = "abcde";
+       Set<String> set = new HashSet<>();
+       for(int j=0; j<s.length(); j++){
+           for(int k=j+1; k<=s.length(); k++){
+               String str = s.substring(j,k);
+               set.add(str);
+           }
+       }
+        System.out.println(set);
+        System.out.println(set.size());
     }
 }
